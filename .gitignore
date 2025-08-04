@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+*.pyc
+*.log
+*.sqlite3
+.env
+*.png
+debug_response.html
+captcha.png

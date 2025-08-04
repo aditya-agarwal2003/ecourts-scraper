@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Case Search Form</title>
+</head>
+<body>
+    <h2>Enter Case Details</h2>
+    <form method="POST">
+  {% csrf_token %}
+  <input type="text" name="case_type" placeholder="Case Type (e.g. CA)" required>
+  <input type="text" name="case_year" placeholder="Case Year (e.g. 2022)" required>
+  <select name="case_status">
+    <option value="pending">Pending</option>
+    <option value="disposed">Disposed</option>
+  </select>
+  <button type="submit">Submit</button>
+</form>
+
+{% if data %}
+  <h2>Case Results:</h2>
+  <ul>
+    {% for item in data %}
+      <li><strong>{{ item.case_info }}</strong><br>
+        Parties: {{ item.parties }}<br>
+        Action: {{ item.view_text }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+</body>
+</html>
