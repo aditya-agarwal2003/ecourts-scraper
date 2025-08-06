@@ -591,7 +591,7 @@
     # driver.quit()
     # return results
 
-
+from ocr_utils import solve_captcha
 
 def run_selenium_scraper(case_type, case_no, case_year, case_status):
     from selenium import webdriver
@@ -600,6 +600,7 @@ def run_selenium_scraper(case_type, case_no, case_year, case_status):
     from selenium.webdriver.support import expected_conditions as EC
     import time
     from selenium.webdriver.chrome.options import Options
+      # 🧠 Make sure this is at the top of your file
 
     options = Options()
     driver = webdriver.Chrome(options=options)
@@ -644,11 +645,26 @@ def run_selenium_scraper(case_type, case_no, case_year, case_status):
     driver.find_element(By.NAME, "rgyear").send_keys(case_year)
 
     # ✅ CAPTCHA
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "case_captcha_code")))
-    captcha_element = driver.find_element(By.ID, "case_captcha_code")
-    captcha_element.screenshot("captcha.png")
-    captcha_code = input("Enter CAPTCHA: ")
+    # WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "case_captcha_code")))
+    # captcha_element = driver.find_element(By.ID, "case_captcha_code")
+    # captcha_element.screenshot("captcha.png")
+    # captcha_code = input("Enter CAPTCHA: ")
+    # driver.find_element(By.ID, "case_captcha_code").send_keys(captcha_code)
+   
+   
+   
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "captcha_image")))
+    captcha_element = driver.find_element(By.ID, "captcha_image")
+
+    captcha_path = "captcha.png"
+    captcha_element.screenshot(captcha_path)
+
+    captcha_code = solve_captcha(captcha_path)
+    print(f"✅ CAPTCHA solved as: {captcha_code}")
+
     driver.find_element(By.ID, "case_captcha_code").send_keys(captcha_code)
+
+
 
     driver.execute_script("submitCaseNo();")  # ⬅️ Make sure you use correct function (not CaseType!)
     time.sleep(3)
