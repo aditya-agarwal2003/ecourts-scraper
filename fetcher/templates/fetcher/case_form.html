@@ -277,7 +277,11 @@
             <div class="result-box">
                 <strong>{{ item.case_info }}</strong><br>
                 <small>Parties:</small> {{ item.parties }}<br>
-                <small>Action:</small> {{ item.view_text }}
+                <small>Filing Date:</small> {{ item.filing_date }}<br>
+                <small>Next Hearing:</small> {{ item.next_hearing_date }}<br>
+                {% if item.recent_pdf != "N/A" %}
+                <a href="{{ item.recent_pdf }}" target="_blank" class="btn btn-sm btn-outline-primary mt-1">📄 View Latest Order</a>
+                {% endif %}
             </div>
         {% endfor %}
     {% endif %}
