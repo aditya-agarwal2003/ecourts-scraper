@@ -269,8 +269,25 @@
         <span class="spinner-border spinner-border-sm" role="status" id="loadingSpinner"></span>
     </button>
 </form>
+{% if data %}
+    <h4 class="mt-4">📋 Case Results:</h4>
+
+        <div class="result-box p-3 border rounded mb-3">
+            <strong>Parties:</strong> {{ data.parties_name }}<br>
+            <strong>Filing Date:</strong> {{ data.filing_date }}<br>
+            <strong>Next Hearing:</strong> {{ data.next_hearing_date }}<br>
+            {% if data.latest_judgement_pdf_link and data.latest_judgement_pdf_link != "N/A" %}
+                <a href="{{ data.latest_judgement_pdf_link }}" target="_blank" class="btn btn-sm btn-outline-primary mt-2">
+                    📄 View Latest Order / Judgment
+                </a>
+            {% endif %}
+        </div>
+{% endif %}
 
 
+
+
+<!--
     {% if data %}
         <h4 class="mt-4">📋 Case Results:</h4>
         {% for item in data %}
@@ -284,7 +301,7 @@
                 {% endif %}
             </div>
         {% endfor %}
-    {% endif %}
+    {% endif %}-->
 </div>
 
 <!-- ✅ Bootstrap JS Bundle -->
